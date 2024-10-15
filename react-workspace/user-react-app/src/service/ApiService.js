@@ -9,6 +9,12 @@ export async function call(api,method,request){
     let headers = new Headers({
         "Content-Type":"application/json"
     })
+    //로컬 스토리지에서 ACCESS TOKEN 가져오기
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    if(accessToken && accessToken !== null){
+        headers.append("Authorization","Bearer "+accessToken);
+    }
+
     //기본 옵션 설정
     let options = {
         headers:headers,
@@ -34,7 +40,7 @@ export async function call(api,method,request){
         //에러가 발생하면, 이를 console.log로 출력하여 디버깅하거나 문제를 파악할 수 있도록 한다.
         //상태코드가 403일때 login으로 리다이렉트
         if(error.status === 403){
-            window.location.href="/login";
+            window.location.href="/";
         }
     })
 }//call
@@ -59,10 +65,10 @@ export function signin(userDTO){
 export function signout(){
     //로컬스토리지의 값을 null로 만든다.
     localStorage.setItem("ACCESS_TOKEN",null);
-    window.location.href="/login"
+    window.location.href="/"
 }
 
 //회원생성
 export function signup(userDTO){
-    return call("/auth/signup","POST",userDTO);
+    return call("/users/signup","POST",userDTO);
 }
