@@ -29,10 +29,32 @@ function MyInfo(){
         return <div>Loading...</div>
       }
 
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = new FormData(e.target);//form태그의 정보를 얻어온다.
+        const userId = user.userId
+        const pwd = data.get("pwd");
+        const name = data.get("name");
+        const email = data.get("email");
+
+        console.log('userId : ' + userId)
+        console.log('pwd : ' + pwd)
+        console.log('name : ' + name)
+        console.log('email : ' + email)
+        call("/users","PUT",{userId:userId,pwd:pwd,name:name,email:email})
+            .then(result => {
+                window.location.href="/main";
+            })
+
+      }
+
+
     return(
-        <form noValidate style={{margin : "10px"}}>
+        <form noValidate style={{margin : "10px"}} onSubmit={handleSubmit}>
         <table border="1" align="center">
+            <thead></thead>
             <caption>:::내 정보:::</caption>
+            <tbody>
             <tr>
                 <th>아이디</th>
                 <td>{user.userId}</td>
@@ -55,6 +77,7 @@ function MyInfo(){
                             <input type="button" value="취소" onClick={()=>window.location.href="/main"}/>
                         </td>
                 </tr>
+                </tbody>
         </table>
         </form>
         
