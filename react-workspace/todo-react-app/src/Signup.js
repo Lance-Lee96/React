@@ -66,13 +66,14 @@ function Signup(){
                             color="primary"
                             >계정 생성</Button>
                     </Grid>
-                </Grid>
+                
                 <Grid container justifyContent="flex-end">
-                    <Grid item>
+                    <Grid item style={{marginTop:"10px"}}>
                         <Link to="/login" variant="body2">
                             계정이 이미 있습니까? 로그인 하세요.
                         </Link>
                     </Grid>
+                </Grid>
                 </Grid>
             </form>
         </Container>
